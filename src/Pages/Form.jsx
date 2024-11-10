@@ -1,6 +1,12 @@
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 // eslint-disable-next-line react/prop-types
@@ -57,8 +63,18 @@ export function InputForm({ onAddItem, onClose }) {
 
       {selectedFood !== "Garlic Bread" && (
         <RadioGroup onValueChange={(value) => setValue("cheese", value)}>
-          <RadioGroupItem value="with Cheese">With Cheese</RadioGroupItem>
-          <RadioGroupItem value="without Cheese">Without Cheese</RadioGroupItem>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="with Cheese" id="with-cheese" />
+            <label htmlFor="with-cheese" className="text-sm">
+              With Cheese
+            </label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="without Cheese" id="without-cheese" />
+            <label htmlFor="without-cheese" className="text-sm">
+              Without Cheese
+            </label>
+          </div>
         </RadioGroup>
       )}
 
