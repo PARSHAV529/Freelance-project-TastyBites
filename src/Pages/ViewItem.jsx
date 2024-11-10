@@ -13,6 +13,7 @@ export default function ViewItems() {
             <div key={idx} className="border p-2 mt-2">
               <p><strong>Food:</strong> {item.food}</p>
               <p><strong>Type:</strong> {item.type}</p>
+              <p><strong>Quantity:</strong> {item.quantity}</p>
               {item.food !== "Garlic Bread" && (
                 <p><strong>Cheese:</strong> {item.cheese}</p>
               )}

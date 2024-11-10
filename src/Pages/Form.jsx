@@ -1,12 +1,7 @@
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 // eslint-disable-next-line react/prop-types
@@ -16,10 +11,11 @@ export function InputForm({ onAddItem, onClose }) {
       food: "",
       type: "",
       cheese: "",
+      quantity: 1,
     },
   });
 
-  const { watch, setValue } = form;
+  const { watch, setValue, register } = form;
   const selectedFood = watch("food");
 
   const typeOptions = {
@@ -65,18 +61,21 @@ export function InputForm({ onAddItem, onClose }) {
         <RadioGroup onValueChange={(value) => setValue("cheese", value)}>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="with Cheese" id="with-cheese" />
-            <label htmlFor="with-cheese" className="text-sm">
-              With Cheese
-            </label>
+            <label htmlFor="with-cheese">With Cheese</label>
           </div>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="without Cheese" id="without-cheese" />
-            <label htmlFor="without-cheese" className="text-sm">
-              Without Cheese
-            </label>
+            <label htmlFor="without-cheese">Without Cheese</label>
           </div>
         </RadioGroup>
       )}
+
+      <Input
+        type="number"
+        placeholder="Enter Quantity"
+        {...register("quantity", { valueAsNumber: true })}
+        min={1}
+      />
 
       <Button type="submit">Add Item</Button>
     </form>
