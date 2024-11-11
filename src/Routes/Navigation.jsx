@@ -12,7 +12,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-gray-900 text-white p-4 shadow-md  w-full z-50">
+    <nav className="bg-[#1c0a00] text-white p-4 shadow-md  w-full z-50">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo or App Name */}
         <Link to="/" className="text-xl font-bold">
@@ -31,13 +31,13 @@ export default function Navbar() {
 
         {/* Navigation Links for larger screens */}
         <div className="hidden lg:flex lg:items-center lg:space-x-6">
-          <Link to="/" className="block px-3 py-2 rounded hover:bg-gray-700">
+          <Link to="/" className="block px-3 py-2 rounded hover:bg-[#c2bab3] hover:text-black">
             Add Item
           </Link>
-          <Link to="/view" className="block px-3 py-2 rounded hover:bg-gray-700">
+          <Link to="/view" className="block px-3 py-2 rounded hover:bg-[#c2bab3] hover:text-black">
             View Items
           </Link>
-          <Link to="/total-items" className="block px-3 py-2 rounded hover:bg-gray-700">
+          <Link to="/total-items" className="block px-3 py-2 rounded hover:bg-[#c2bab3] hover:text-black">
             Total Items
           </Link>
         </div>
