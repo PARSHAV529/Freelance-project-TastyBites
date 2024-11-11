@@ -9,7 +9,7 @@ import {
 // eslint-disable-next-line react/prop-types
 export default function Modal({ isOpen, onClose, title, children }) {
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={onClose} className='text-black'>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>

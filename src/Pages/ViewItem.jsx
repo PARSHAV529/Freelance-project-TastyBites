@@ -56,7 +56,7 @@ export default function ViewItems() {
       {/* Modal to show customer order details */}
       {isModalOpen && selectedCustomer && (
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-          <h3 className="text-xl font-semibold mb-4">
+          <h3 className="text-xl font-semibold mb-4 text-black">
             Order Details for {selectedCustomer.customerName}
           </h3>
           <ScrollArea className="h-72  rounded-md border">
@@ -64,7 +64,7 @@ export default function ViewItems() {
             <p>No items in this order.</p>
           ) : (
             selectedCustomer.items.map((item, index) => (
-              <div key={index} className="border p-2 mt-2">
+              <div key={index} className="border p-2 mt-2 text-black">
                 <p><strong>Food:</strong> {item.type} {item.food}</p>
                 <p><strong>Quantity:</strong> {item.quantity}</p>
                 {item.food !== "Garlic Bread" && (

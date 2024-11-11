@@ -57,7 +57,7 @@ export function InputForm({ onAddItem, onClose, initialData }) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 text-black">
       <Select onValueChange={(value) => setValue("food", value)}>
         <SelectTrigger>
           <SelectValue placeholder="Select a Food" />
