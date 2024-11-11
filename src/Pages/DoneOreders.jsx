@@ -1,22 +1,14 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import Modal from "@/components/Modal";
-import { Button } from "@/components/ui/button";
-import {
-  deleteItem,
-  addItemToCustomer,
-  markItemDone,
-  completeOrder,
-} from "@/store/formSlice";
-import { InputForm } from "./Form";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
-export default function ViewItems() {
-  const customers = useSelector((state) => state.form.customers);
+export default function DoneOrders() {
+  const customers = useSelector((state) => state.form.doneOrders);
+//   const customers = useSelector((state) => state.form.customers);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isAddItemOpen, setIsAddItemOpen] = useState(false);
-  const dispatch = useDispatch();
 
   const handleOpenModal = (customer) => {
     setSelectedCustomer(customer);
@@ -25,35 +17,6 @@ export default function ViewItems() {
 
   const handleCloseModal = () => {
     setSelectedCustomer(null);
-    setIsAddItemOpen(false);
-    setIsModalOpen(false);
-  };
-
-  const handleDeleteItem = (index) => {
-    dispatch(deleteItem({ customerName: selectedCustomer.customerName, index }));
-  };
-
-  const handleAddNewItem = (item) => {
-    dispatch(addItemToCustomer({ customerName: selectedCustomer.customerName, item }));
-    setIsAddItemOpen(false);
-  };
-
-  const handleMarkItemDone = (index) => {
-    dispatch(markItemDone({ customerName: selectedCustomer.customerName, index }));
-    setIsModalOpen(false);
-  };
-
-  const handleCompleteOrder = () => {
-    // Update all items' status to 'Done'
-    const updatedItems = selectedCustomer.items.map((item) => ({
-      ...item,
-      isDone: true, // Mark all items as done
-    }));
-    
-    // Dispatch an action to update the items for the selected customer
-    dispatch(completeOrder({ customerName: selectedCustomer.customerName, updatedItems }));
-    
-    // Close the modal
     setIsModalOpen(false);
   };
 
@@ -93,14 +56,7 @@ export default function ViewItems() {
                     <p><strong>Price:</strong> ₹{item.price}</p>
                     <p><strong>Status:</strong> {item.isDone ? "Done" : "Pending"}</p>
 
-                    <div className="flex space-x-4 mt-2">
-                      <Button onClick={() => handleMarkItemDone(index)}>
-                        {item.isDone ? "Undo" : "Mark as Done"}
-                      </Button>
-                      <Button variant="danger" onClick={() => handleDeleteItem(index)}>
-                        Delete Item
-                      </Button>
-                    </div>
+                   
                   </div>
                 ))
               )}
@@ -110,19 +66,9 @@ export default function ViewItems() {
               Total Price: ₹{selectedCustomer.items.reduce((total, item) => total + item.price, 0)}
             </p>
 
-            {/* Add New Item Button */}
-            <div className="text-center">
-              <Button onClick={() => setIsAddItemOpen(true)} className="mt-4">
-                Add New Item
-              </Button>
-            </div>
+           
 
-            {/* Complete Order Button */}
-            <div className="text-center mt-4">
-              <Button onClick={handleCompleteOrder} className="bg-blue-600 text-white">
-                Complete Order
-              </Button>
-            </div>
+            
 
             <div className="flex justify-end mt-4">
               <Button onClick={handleCloseModal}>Close</Button>
@@ -131,11 +77,7 @@ export default function ViewItems() {
         </Modal>
       )}
 
-      {isAddItemOpen && (
-        <Modal isOpen={isAddItemOpen} onClose={handleCloseModal}>
-          <InputForm onAddItem={handleAddNewItem} onClose={handleCloseModal} />
-        </Modal>
-      )}
+      
     </div>
   );
 }

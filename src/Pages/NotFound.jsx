@@ -1,11 +1,14 @@
 // eslint-disable-next-line no-unused-vars
-import React from "react"
+import React from "react";
 
-const NotFound = ()=>{
-    return(<>
+const NotFound = () => {
+  return (
+    <>
+      <div>
+        <img src="../image/2676383.jpg" alt="404 page not found" />
+      </div>
+    </>
+  );
+};
 
-    <h1>404 page not found</h1>
-    </>)
-}
-
-export default NotFound
+export default NotFound;

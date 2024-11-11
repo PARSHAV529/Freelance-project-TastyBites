@@ -1,49 +1,58 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   customers: [],
+  doneOrders: [],
 };
 
 const formSlice = createSlice({
-  name: 'form',
+  name: "form",
   initialState,
   reducers: {
-    // Action to add a new customer
     addCustomer: (state, action) => {
       state.customers.push(action.payload);
     },
-
-    // Action to add an item to a customer's order
-    addItemToCustomer: (state, action) => {
-      const { customerName, item } = action.payload;
-      const customer = state.customers.find((c) => c.customerName === customerName);
-      if (customer) {
-        customer.items.push(item);
-      }
-    },
-
-    // Action to update an item in the customer's order
-    updateItem: (state, action) => {
-      const { index, updatedItem } = action.payload;
-      const customer = state.customers.find((c) => c.customerName === updatedItem.customerName);
-      if (customer) {
-        customer.items[index] = updatedItem;
-      }
-    },
-
-    // Action to delete an item from the customer's order
     deleteItem: (state, action) => {
       const { customerName, index } = action.payload;
       const customer = state.customers.find((c) => c.customerName === customerName);
-      if (customer && customer.items) {
-        customer.items.splice(index, 1);
+      if (customer) customer.items.splice(index, 1);
+    },
+    addItemToCustomer: (state, action) => {
+      const { customerName, item } = action.payload;
+      const customer = state.customers.find((c) => c.customerName === customerName);
+      if (customer) customer.items.push(item);
+    },
+    markItemDone: (state, action) => {
+      const { customerName, index } = action.payload;
+      const customer = state.customers.find((c) => c.customerName === customerName);
+      if (customer) customer.items[index].isDone = !customer.items[index].isDone;
+    },
+    completeOrder: (state, action) => {
+      const { customerName } = action.payload;
+      const customer = state.customers.find((c) => c.customerName === customerName);
+      
+      if (customer) {
+        // Mark all items as done
+        customer.items = customer.items.map(item => ({
+          ...item,
+          isDone: true,  // Mark each item as done
+        }));
+
+        // Move the customer to doneOrders
+        state.doneOrders.push(customer);
+
+        // Remove the customer from the customers list
+        state.customers = state.customers.filter(c => c.customerName !== customerName);
       }
     },
   },
 });
 
-// Export actions
-export const { addCustomer, addItemToCustomer, updateItem, deleteItem } = formSlice.actions;
-
-// Export the reducer
+export const {
+  addCustomer,
+  deleteItem,
+  addItemToCustomer,
+  markItemDone,
+  completeOrder,
+} = formSlice.actions;
 export default formSlice.reducer;

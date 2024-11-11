@@ -40,12 +40,15 @@ export default function Navbar() {
           <Link to="/total-items" className="block px-3 py-2 rounded hover:bg-[#c2bab3] hover:text-black">
             Total Items
           </Link>
+          <Link to="/done-oreder" className="block px-3 py-2 rounded hover:bg-[#c2bab3] hover:text-black">
+          Complete Oreder
+          </Link>
         </div>
       </div>
 
       {/* Sliding Sidebar for mobile */}
       <div
-        className={`fixed top-0 right-0 h-full w-64 bg-gray-800 text-white transform ${
+        className={`fixed top-0 right-0 h-full w-64 bg-[#1c0a00] text-white transform ${
           isOpen ? "translate-x-0" : "translate-x-full"
         } transition-transform duration-300 ease-in-out lg:hidden z-50`}
       >
@@ -60,24 +63,31 @@ export default function Navbar() {
         <div className="flex flex-col items-start space-y-6 p-4">
           <Link
             to="/"
-            className="block px-3 py-2 rounded hover:bg-gray-700 w-full"
+            className="block px-3 py-2 rounded hover:bg-[#c2bab3] hover:text-black w-full"
             onClick={toggleMenu}
           >
             Add Item
           </Link>
           <Link
             to="/view"
-            className="block px-3 py-2 rounded hover:bg-gray-700 w-full"
+            className="block px-3 py-2 rounded hover:bg-[#c2bab3] hover:text-black w-full"
             onClick={toggleMenu}
           >
             View Items
           </Link>
           <Link
             to="/total-items"
-            className="block px-3 py-2 rounded hover:bg-gray-700 w-full"
+            className="block px-3 py-2 rounded hover:bg-[#c2bab3] hover:text-black w-full"
             onClick={toggleMenu}
           >
             Total Items
+          </Link>
+          <Link
+            to="/done-oreder"
+            className="block px-3 py-2 rounded hover:bg-[#c2bab3] hover:text-black w-full"
+            onClick={toggleMenu}
+          >
+            Complete Oreder
           </Link>
         </div>
       </div>

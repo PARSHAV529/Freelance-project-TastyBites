@@ -1,38 +1,40 @@
 import { useSelector } from "react-redux";
-import { Button } from "@/components/ui/button";
 
 export default function TotalItemsPage() {
   const customers = useSelector((state) => state.form.customers);
 
-  // Initialize counters for each food type and its subtypes
+  // Initialize counters for each food type and its subtypes (total and pending)
   const foodCount = {
     BBQ: {
-      Pahadi: 0,
-      Tandoori: 0,
-      Italian: 0,
+      Pahadi: { total: 0, pending: 0 },
+      Tandoori: { total: 0, pending: 0 },
+      Italian: { total: 0, pending: 0 },
     },
     Maggie: {
-      Plain: 0,
-      Veg: 0,
-      Italian: 0,
+      Plain: { total: 0, pending: 0 },
+      Veg: { total: 0, pending: 0 },
+      Italian: { total: 0, pending: 0 },
     },
     "Garlic Bread": {
-      Cheese: 0,
-      Sweetcorn: 0,
-      "Onion & Capsicum": 0,
+      Cheese: { total: 0, pending: 0 },
+      Sweetcorn: { total: 0, pending: 0 },
+      "Onion & Capsicum": { total: 0, pending: 0 },
     },
   };
 
-  // Calculate the total quantity of each food type and subtype
+  // Calculate the total and pending quantity of each food type and subtype
   customers.forEach((customer) => {
     customer.items.forEach((item) => {
       if (item.food in foodCount) {
         if (item.food === "BBQ") {
-          foodCount.BBQ[item.type] += item.quantity; // Add quantity for BBQ subtypes
+          foodCount.BBQ[item.type].total += item.quantity;
+          if (!item.isDone) foodCount.BBQ[item.type].pending += item.quantity;
         } else if (item.food === "Maggie") {
-          foodCount.Maggie[item.type] += item.quantity; // Add quantity for Maggie subtypes
+          foodCount.Maggie[item.type].total += item.quantity;
+          if (!item.isDone) foodCount.Maggie[item.type].pending += item.quantity;
         } else if (item.food === "Garlic Bread") {
-          foodCount["Garlic Bread"][item.type] += item.quantity; // Add quantity for Garlic Bread subtypes
+          foodCount["Garlic Bread"][item.type].total += item.quantity;
+          if (!item.isDone) foodCount["Garlic Bread"][item.type].pending += item.quantity;
         }
       }
     });
@@ -51,7 +53,11 @@ export default function TotalItemsPage() {
             {Object.keys(foodCount.BBQ).map((type) => (
               <div key={type} className="flex justify-between items-center">
                 <p>{type}</p>
-                <p className="font-semibold">{foodCount.BBQ[type]} items</p>
+                <div className="space-x-2">
+                  {/* <span className="font-semibold">Total: {foodCount.BBQ[type].total} items</span>
+                  <span className="text-red-500">Pending: {foodCount.BBQ[type].pending} items</span> */}
+                  <span className="font-semibold">Pending: {foodCount.BBQ[type].pending} items</span>
+                </div>
               </div>
             ))}
           </div>
@@ -64,7 +70,10 @@ export default function TotalItemsPage() {
             {Object.keys(foodCount.Maggie).map((type) => (
               <div key={type} className="flex justify-between items-center">
                 <p>{type}</p>
-                <p className="font-semibold">{foodCount.Maggie[type]} items</p>
+                <div className="space-x-2">
+                  <span className="font-semibold">Pending: {foodCount.Maggie[type].pending} items</span>
+                  {/* <span className="text-red-500">Pending: {foodCount.Maggie[type].pending} items</span> */}
+                </div>
               </div>
             ))}
           </div>
@@ -77,14 +86,16 @@ export default function TotalItemsPage() {
             {Object.keys(foodCount["Garlic Bread"]).map((type) => (
               <div key={type} className="flex justify-between items-center">
                 <p>{type}</p>
-                <p className="font-semibold">{foodCount["Garlic Bread"][type]} items</p>
+                <div className="space-x-2">
+                  {/* <span className="font-semibold">Total: {foodCount["Garlic Bread"][type].total} items</span>
+                  <span className="text-red-500">Pending: {foodCount["Garlic Bread"][type].pending} items</span> */}
+                <span className="font-semibold">Pending: {foodCount["Garlic Bread"][type].pending} items</span>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </div>
-
-      
     </div>
   );
 }
