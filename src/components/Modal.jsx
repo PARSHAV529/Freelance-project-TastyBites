@@ -1,16 +1,25 @@
 import React from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 
-export default function Modal({ isOpen, onClose, children }) {
-  if (!isOpen) return null;
-
+export default function Modal({ isOpen, onClose, title, children }) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add Item</DialogTitle>
+          <DialogTitle>{title}</DialogTitle>
+          <DialogDescription className="text-gray-500">
+            {children ? "Order details" : "No orders available"}
+          </DialogDescription>
         </DialogHeader>
-        {children}
+        <div className="mt-4">{children}</div>
+        
       </DialogContent>
     </Dialog>
   );
