@@ -126,4 +126,4 @@ export default function InputForm({ onAddItem, onClose, initialData }) {
       <Button type="submit">Add Item</Button>
     </form>
   );
-}
+} 

@@ -31,6 +31,7 @@ export default function ViewItems() {
 
   const handleDeleteItem = (index) => {
     dispatch(deleteItem({ customerName: selectedCustomer.customerName, index }));
+    setIsModalOpen(false);
   };
 
   const handleAddNewItem = (item) => {
