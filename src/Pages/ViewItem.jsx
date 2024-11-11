@@ -85,7 +85,7 @@ export default function ViewItems() {
                 selectedCustomer.items.map((item, index) => (
                   <div
                     key={index}
-                    className={`border p-2 mt-2 rounded bg-white text-black ${item.isDone ? "bg-green-200" : ""}`}
+                    className={`border p-2 mt-2 rounded bg-white text-black ${item.isDone ? "!bg-green-200" : ""}`}
                   >
                     <p><strong>Food:</strong> {item.type} {item.food}</p>
                     <p><strong>Quantity:</strong> {item.quantity}</p>
