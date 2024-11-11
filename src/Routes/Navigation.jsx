@@ -16,7 +16,7 @@ export default function Navbar() {
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo or App Name */}
         <Link to="/" className="text-xl font-bold">
-          MyApp
+          TastyBites
         </Link>
 
         {/* Hamburger Menu for mobile */}
