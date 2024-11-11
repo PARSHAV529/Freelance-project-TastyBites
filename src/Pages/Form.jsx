@@ -28,9 +28,9 @@ export function InputForm({ onAddItem, onClose, initialData }) {
 
   // Pricing logic
   const prices = {
-    BBQ: { base: 100, types: { Pahadi: 20, Tandoori: 25, Italian: 30 }, cheese: { "with Cheese": 15, "without Cheese": 0 } },
-    Maggie: { base: 50, types: { Plain: 10, Veg: 15, Italian: 20 }, cheese: { "with Cheese": 10, "without Cheese": 0 } },
-    "Garlic Bread": { base: 80, types: { Cheese: 10, Sweetcorn: 15, "Onion & Capsicum": 20 }, cheese: { "with Cheese": 0, "without Cheese": 0 } },
+    BBQ: { base: 0, types: { Pahadi: 80, Tandoori: 70, Italian: 80 }, cheese: { "with Cheese": 20, "without Cheese": 0 } },
+    Maggie: { base: 0, types: { Plain: 40, Veg: 50, Italian: 70 }, cheese: { "with Cheese": 20, "without Cheese": 0 } },
+    "Garlic Bread": { base: 0, types: { Cheese: 70, Sweetcorn: 80, "Onion & Capsicum": 80 }, cheese: { "with Cheese": 0, "without Cheese": 0 } },
   };
 
   const typeOptions = {

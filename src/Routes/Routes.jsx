@@ -6,20 +6,17 @@ import NotFound from "../Pages/NotFound";
 import ViewItem from "@/Pages/ViewItem";
 import AddCustomer from "@/Pages/AddCustomer";
 import TotalItemsPage from "@/Pages/TotalItemsPage";
+import Navbar from "./Navigation";
 
 const Routeing = () => {
   return (
     <>
 
       <Router>
-      <div className="flex justify-center space-x-6 mb-8">
-        <Link to="/add">Add Item</Link>
-        <Link to="/view">View Items</Link>
-        <Link to="/total-items">total-items</Link>
-      </div>
+      <Navbar/>
         <Routes>
           <Route path="/view" element={<ViewItem/>} />
-          <Route path="/add" element={<AddCustomer/>} />
+          <Route path="/" element={<AddCustomer/>} />
           <Route path="/total-items" element={<TotalItemsPage/>} />
           <Route path="*" element={ <NotFound/>} />
 
