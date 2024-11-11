@@ -4,6 +4,7 @@ import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
 import { deleteItem, addItemToCustomer } from "@/store/formSlice"; // Import actions
 import { InputForm } from "./Form"; // Assuming InputForm is used for adding new items
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function ViewItems() {
   const customers = useSelector((state) => state.form.customers);
@@ -58,6 +59,7 @@ export default function ViewItems() {
           <h3 className="text-xl font-semibold mb-4">
             Order Details for {selectedCustomer.customerName}
           </h3>
+          <ScrollArea className="h-72  rounded-md border">
           {selectedCustomer.items.length === 0 ? (
             <p>No items in this order.</p>
           ) : (
@@ -79,6 +81,8 @@ export default function ViewItems() {
               </div>
             ))
           )}
+          </ScrollArea>
+          
         <p><strong>Total Price:</strong> ₹{selectedCustomer.items.reduce((total, item) => total + item.price, 0)}</p>
 
           {/* Add New Item Button */}
