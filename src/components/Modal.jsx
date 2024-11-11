@@ -1,5 +1,3 @@
-import React from "react";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -8,6 +6,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 
+// eslint-disable-next-line react/prop-types
 export default function Modal({ isOpen, onClose, title, children }) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>

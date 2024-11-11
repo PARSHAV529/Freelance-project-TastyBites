@@ -1,37 +1,49 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
-// Initial state for the Redux store
 const initialState = {
-  customers: [], // Array to hold customer orders
+  customers: [],
 };
 
-// Redux slice for managing form data
 const formSlice = createSlice({
-  name: "form",
+  name: 'form',
   initialState,
   reducers: {
-    // Action to add a customer along with their items
+    // Action to add a new customer
     addCustomer: (state, action) => {
-      const { customerName, items } = action.payload;
-      const newCustomer = { customerName, items };
-      state.customers.push(newCustomer);
+      state.customers.push(action.payload);
     },
-    // Action to add an item to an existing customer's order
+
+    // Action to add an item to a customer's order
     addItemToCustomer: (state, action) => {
       const { customerName, item } = action.payload;
-      const customer = state.customers.find(
-        (customer) => customer.customerName === customerName
-      );
-
+      const customer = state.customers.find((c) => c.customerName === customerName);
       if (customer) {
         customer.items.push(item);
+      }
+    },
+
+    // Action to update an item in the customer's order
+    updateItem: (state, action) => {
+      const { index, updatedItem } = action.payload;
+      const customer = state.customers.find((c) => c.customerName === updatedItem.customerName);
+      if (customer) {
+        customer.items[index] = updatedItem;
+      }
+    },
+
+    // Action to delete an item from the customer's order
+    deleteItem: (state, action) => {
+      const { customerName, index } = action.payload;
+      const customer = state.customers.find((c) => c.customerName === customerName);
+      if (customer && customer.items) {
+        customer.items.splice(index, 1);
       }
     },
   },
 });
 
-// Export actions to be used in components
-export const { addCustomer, addItemToCustomer } = formSlice.actions;
+// Export actions
+export const { addCustomer, addItemToCustomer, updateItem, deleteItem } = formSlice.actions;
 
-// Export the reducer to be added to the store
+// Export the reducer
 export default formSlice.reducer;

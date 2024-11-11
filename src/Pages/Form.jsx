@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useEffect, useState } from "react";
 
 // eslint-disable-next-line react/prop-types
-export function InputForm({ onAddItem, onClose }) {
+export function InputForm({ onAddItem, onClose, initialData }) {
   const form = useForm({
-    defaultValues: {
+    defaultValues: initialData || {
       food: "",
       type: "",
       cheese: "",
@@ -23,25 +23,14 @@ export function InputForm({ onAddItem, onClose }) {
   const selectedCheese = watch("cheese");
   const quantity = watch("quantity");
 
-  const [totalPrice, setTotalPrice] = useState(0);
+  // eslint-disable-next-line react/prop-types
+  const [totalPrice, setTotalPrice] = useState(initialData?.price || 0);
 
   // Pricing logic
   const prices = {
-    BBQ: {
-      base: 0,
-      types: { Pahadi: 80, Tandoori: 70, Italian: 80 },
-      cheese: { "with Cheese": 20, "without Cheese": 0 },
-    },
-    Maggie: {
-      base: 0,
-      types: { Plain: 40, Veg: 50, Italian: 70 },
-      cheese: { "with Cheese": 20, "without Cheese": 0 },
-    },
-    "Garlic Bread": {
-      base: 0,
-      types: { Cheese: 70, Sweetcorn: 80, "Onion & Capsicum": 80 },
-      cheese: { "with Cheese": 0, "without Cheese": 0 }, // No cheese option for Garlic Bread
-    },
+    BBQ: { base: 100, types: { Pahadi: 20, Tandoori: 25, Italian: 30 }, cheese: { "with Cheese": 15, "without Cheese": 0 } },
+    Maggie: { base: 50, types: { Plain: 10, Veg: 15, Italian: 20 }, cheese: { "with Cheese": 10, "without Cheese": 0 } },
+    "Garlic Bread": { base: 80, types: { Cheese: 10, Sweetcorn: 15, "Onion & Capsicum": 20 }, cheese: { "with Cheese": 0, "without Cheese": 0 } },
   };
 
   const typeOptions = {
@@ -69,7 +58,6 @@ export function InputForm({ onAddItem, onClose }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      {/* Food Selection */}
       <Select onValueChange={(value) => setValue("food", value)}>
         <SelectTrigger>
           <SelectValue placeholder="Select a Food" />
@@ -81,7 +69,6 @@ export function InputForm({ onAddItem, onClose }) {
         </SelectContent>
       </Select>
 
-      {/* Type Selection */}
       {selectedFood && (
         <Select onValueChange={(value) => setValue("type", value)}>
           <SelectTrigger>
@@ -89,15 +76,12 @@ export function InputForm({ onAddItem, onClose }) {
           </SelectTrigger>
           <SelectContent>
             {typeOptions[selectedFood]?.map((type) => (
-              <SelectItem key={type} value={type}>
-                {type}
-              </SelectItem>
+              <SelectItem key={type} value={type}>{type}</SelectItem>
             ))}
           </SelectContent>
         </Select>
       )}
 
-      {/* Cheese Selection */}
       {selectedFood !== "Garlic Bread" && (
         <RadioGroup onValueChange={(value) => setValue("cheese", value)}>
           <div className="flex items-center space-x-2">
@@ -111,18 +95,9 @@ export function InputForm({ onAddItem, onClose }) {
         </RadioGroup>
       )}
 
-      {/* Quantity Input */}
-      <Input
-        type="number"
-        placeholder="Enter Quantity"
-        {...register("quantity", { valueAsNumber: true })}
-        min={1}
-      />
-
-      {/* Total Price Display */}
+      <Input type="number" placeholder="Enter Quantity" {...register("quantity", { valueAsNumber: true })} min={1} />
       <div className="font-semibold">Total Price: ₹{totalPrice}</div>
-
-      <Button type="submit">Add Item</Button>
+      <Button type="submit">Save Item</Button>
     </form>
   );
 }

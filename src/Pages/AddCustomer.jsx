@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addCustomer } from "@/store/formSlice";
 import Modal from "@/components/Modal";
-import { InputForm } from "./Form";
+import {InputForm} from "./Form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
